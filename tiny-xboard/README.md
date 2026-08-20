@@ -53,7 +53,7 @@ Tiny Xboard UniProxy API 服务器（模拟 Xboard 面板的节点接口），�
 ### Install
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ashvvvvv/mini-sb-agent/master/tiny-xboard/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/cervelo-cyber/mini-sb-xboard-agent/main/tiny-xboard/install.sh | sh
 ```
 
 非交互安装（VLESS 节点）：
@@ -72,7 +72,7 @@ sh install.sh --token '你的token' --node-id 2 --node-type hy2 --node-port 4431
 
 | 参数 | 说明 |
 | --- | --- |
-| `--ref REF` | Git ref（分支名或 commit），默认 `master`；二进制从该 ref 下的仓库文件下载 |
+| `--ref REF` | Git ref（分支名或 commit），默认 `main`；二进制从该 ref 下的仓库文件下载 |
 | `--listen ADDR` | API 监听地址，默认 `127.0.0.1:8080` |
 | `--data-dir PATH` | 状态目录，默认 `/etc/tiny-xboard` |
 | `--reality-*` | VLESS Reality 参数 |
@@ -98,7 +98,7 @@ curl "http://127.0.0.1:8080/api/v1/server/UniProxy/config?token=你的token&node
 ### Upgrade
 
 ```sh
-sh install.sh            # 重新下载最新 master 二进制并升级
+sh install.sh            # 重新下载最新 main 二进制并升级
 sh install.sh --ref <commit>
 ```
 

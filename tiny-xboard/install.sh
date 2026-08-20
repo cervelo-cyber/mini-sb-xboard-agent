@@ -15,8 +15,8 @@
 set -eu
 
 APP="tiny-xboard"
-REPO="ashvvvvv/mini-sb-agent"
-REF="master"
+REPO="cervelo-cyber/mini-sb-xboard-agent"
+REF="main"
 INSTALL_DIR="/opt/$APP"
 BIN_DIR="$INSTALL_DIR/bin"
 SERVICE_NAME="$APP"
@@ -49,7 +49,7 @@ tiny-xboard installer (Tiny Xboard UniProxy mock API)
 用法示例：
 
   # 一键安装 / 升级（从仓库 raw 文件下载二进制，无需 Git/Go/Release）
-  curl -fsSL https://raw.githubusercontent.com/ashvvvvv/mini-sb-agent/master/tiny-xboard/install.sh | sh
+  curl -fsSL https://raw.githubusercontent.com/cervelo-cyber/mini-sb-xboard-agent/main/tiny-xboard/install.sh | sh
 
   # 非交互安装：VLESS 节点
   sh install.sh --token '节点密钥' --node-id 1 --node-type vless --node-port 443 --yes
@@ -79,7 +79,7 @@ tiny-xboard installer (Tiny Xboard UniProxy mock API)
   --gomemlimit VALUE            默认 32MiB；与 sing-box 同机运行时的保守上限
   --gogc N                      默认 70
   --gomaxprocs N                默认 1
-  --ref REF                     Git ref（分支名或 commit），默认 master；二进制从该 ref 下的仓库文件下载
+  --ref REF                     Git ref（分支名或 commit），默认 main；二进制从该 ref 下的仓库文件下载
   --version REF                 --ref 的别名（旧参数兼容）
   --add-node                    追加一个节点到 nodes.json（管理机已装好后再用）
   --force                       强制重新下载并校验二进制；不会删除 node.json/users.json/traffic.json
