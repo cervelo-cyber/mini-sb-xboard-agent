@@ -1,0 +1,4 @@
+tiny-xboard.exe
+*.test
+*.exe
+dist/
