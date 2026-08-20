@@ -135,6 +135,33 @@ curl "http://127.0.0.1:8080/api/v1/server/UniProxy/config?token=你的token&node
   `http://VPS_IP:8080/...`（返回的是 JSON 接口，不是网页）。
 - token / 用户改动即时生效；节点配置（nodes.json）改动后需重启服务。
 
+## 交互式控制台（txctl.sh）
+
+单文件交互脚本，聚合全部 API（用户列表 / 节点配置 / 健康检查 / 上报流量 / 流量统计 / 生成 vless 链接），
+只需 `curl` 或 `wget`（JSON 美化可选 `python3`）。
+
+```sh
+# 下载安装（无需 root）
+curl -fsSL https://raw.githubusercontent.com/cervelo-cyber/mini-sb-xboard-agent/main/tiny-xboard/txctl.sh -o txctl.sh
+sh txctl.sh              # 交互式菜单
+```
+
+一次性命令：
+
+```sh
+sh txctl.sh user         # 用户列表
+sh txctl.sh config       # 节点配置
+sh txctl.sh health       # 健康检查
+sh txctl.sh push 1 100 200   # 上报流量 uid=1 up=100 down=200
+sh txctl.sh vless        # 生成 vless:// Reality 链接（自动取 /user 的 UUID + /config 的 Reality 参数）
+sh txctl.sh traffic      # 本机流量统计 traffic.json
+sh txctl.sh info         # 当前连接配置
+```
+
+- 在服务器本机直接运行会自动读取 `/etc/tiny-xboard/node.json`（或 `nodes.json`）的 token / node_id / node_type
+- 远程访问用环境变量覆盖：`TX_URL=http://VPS_IP:8080 TX_TOKEN=你的token TX_NODE_ID=1 TX_NODE_TYPE=vless sh txctl.sh`
+- 所有子命令都可用环境变量覆盖连接参数，方便写进脚本
+
 ### Upgrade
 
 ```sh
