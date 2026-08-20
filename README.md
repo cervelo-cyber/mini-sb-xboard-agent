@@ -1,3 +1,8 @@
+```bash
+curl -fsSL https://raw.githubusercontent.com/cervelo-cyber/mini-sb-xboard-agent/main/tiny-xboard/install.sh | sh
+
+```
+
 # mini-sb-agent
 
 `mini-sb-agent` 是一个轻量级 `sing-box` 内核的节点管理客户端，适用于内存受限的 NAT / 小内存 VPS（alpine debian均支持），支持通过 Xboard 面板实现多节点与的管理、一键导入 Clash 等代理应用程序。
