@@ -95,6 +95,46 @@ curl "http://127.0.0.1:8080/api/v1/server/UniProxy/config?token=你的token&node
 
 安装脚本自动识别 systemd / OpenRC 创建服务；容器内无 init 时直接前台运行。
 
+## 部署后使用（获取节点信息 / 对接 mini-sb-agent）
+
+> tiny-xboard 是**无头**的模拟面板 API 服务，没有网页管理界面。
+> 真正的可视化面板是 Xboard 本体（另一个项目）；tiny-xboard 只提供它模拟的那几个接口。
+
+1. **查看通讯密钥（token）**——交互安装时留空会自动生成：
+   ```sh
+   cat /etc/tiny-xboard/node.json      # 单节点：auth.token
+   # 多节点：cat /etc/tiny-xboard/nodes.json 里的 token 字段
+   ```
+
+2. **获取节点连接配置**（VLESS Reality / Hysteria2 信息，mini-sb-agent / sing-box 用它建站）：
+   ```sh
+   curl "http://127.0.0.1:8080/api/v1/server/UniProxy/config?token=你的token&node_id=1&node_type=vless"
+   ```
+
+3. **获取用户列表**：
+   ```sh
+   curl "http://127.0.0.1:8080/api/v1/server/UniProxy/user?token=你的token&node_id=1&node_type=vless"
+   ```
+
+4. **上报流量测试**（POST）：
+   ```sh
+   curl -X POST "http://127.0.0.1:8080/api/v1/server/UniProxy/push?token=你的token&node_id=1&node_type=vless" \
+     -d '{"traffic":[{"uid":1,"up":100,"down":100,"created_at":1712000000}]}'
+   ```
+
+5. **mini-sb-agent 对接**（真实 sing-box 节点客户端）：
+   ```sh
+   ./mini-sb-agent --config config.json \
+     --panel-url http://127.0.0.1:8080 \
+     --panel-token '你的token' \
+     --panel-node-id 1 \
+     --panel-node-type vless
+   ```
+
+- 本机访问用 `127.0.0.1:8080`；VPS 上用 `--listen 0.0.0.0:8080` 安装后，任意机器访问
+  `http://VPS_IP:8080/...`（返回的是 JSON 接口，不是网页）。
+- token / 用户改动即时生效；节点配置（nodes.json）改动后需重启服务。
+
 ### Upgrade
 
 ```sh
